@@ -1,0 +1,9 @@
+c:\dev\katas\2CP\2CP.Game\bin\Debug\netstandard2.0\2CP.Game.deps.json
+c:\dev\katas\2CP\2CP.Game\bin\Debug\netstandard2.0\2CP.Game.dll
+c:\dev\katas\2CP\2CP.Game\bin\Debug\netstandard2.0\2CP.Game.pdb
+c:\dev\katas\2CP\2CP.Game\obj\Debug\netstandard2.0\2CP.Game.csprojAssemblyReference.cache
+c:\dev\katas\2CP\2CP.Game\obj\Debug\netstandard2.0\2CP.Game.csproj.CoreCompileInputs.cache
+c:\dev\katas\2CP\2CP.Game\obj\Debug\netstandard2.0\2CP.Game.AssemblyInfoInputs.cache
+c:\dev\katas\2CP\2CP.Game\obj\Debug\netstandard2.0\2CP.Game.AssemblyInfo.cs
+c:\dev\katas\2CP\2CP.Game\obj\Debug\netstandard2.0\2CP.Game.dll
+c:\dev\katas\2CP\2CP.Game\obj\Debug\netstandard2.0\2CP.Game.pdb
