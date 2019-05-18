@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.352
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2CP.Game", "2CP.Game\2CP.Game.csproj", "{1F2EE330-CC61-4503-93DB-C23C9F25B9D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "2CP.Game", "2CP.Game\2CP.Game.csproj", "{1F2EE330-CC61-4503-93DB-C23C9F25B9D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2CP.Tests", "2CP.Tests\2CP.Tests.csproj", "{1DDA6F2A-1212-4DDD-8068-8425D57FA0A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "2CP.Tests", "2CP.Tests\2CP.Tests.csproj", "{1DDA6F2A-1212-4DDD-8068-8425D57FA0A0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +15,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{1F2EE330-CC61-4503-93DB-C23C9F25B9D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -44,5 +41,11 @@ Global
 		{1DDA6F2A-1212-4DDD-8068-8425D57FA0A0}.Release|x64.Build.0 = Release|Any CPU
 		{1DDA6F2A-1212-4DDD-8068-8425D57FA0A0}.Release|x86.ActiveCfg = Release|Any CPU
 		{1DDA6F2A-1212-4DDD-8068-8425D57FA0A0}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {ED1606CA-575E-4E27-A004-15AF392FB717}
 	EndGlobalSection
 EndGlobal
