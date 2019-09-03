@@ -10,7 +10,6 @@ using Xunit;
 
 namespace _2CP.Tests
 {
-
     public class TwoCardPokerTests : IClassFixture<GameServerFixture>
     {
         private readonly GameServerFixture _fixture;
@@ -23,7 +22,7 @@ namespace _2CP.Tests
 
         [Theory(DisplayName = "Game Server Tests")]
         [MemberData(nameof(TheoryDataForNewGameScenarios))]
-        public void NewGameScenarios((string name, int totalPlayers, int totalRounds, List<Player> players, int playRounds, GameStatus expectedStatus, int expectedRoundsScored) scenario)
+        public void NewGameScenarios((string name, int totalPlayers, int totalRounds, List<Player> players, int playRounds, GameStatus expectedStatus, int expectedRoundsScored, int expectedNumberOfErrors) scenario)
         {
             Given.IAmStartingANewGame(_fixture.GameServer, scenario.totalPlayers, scenario.totalRounds, out var game);
             Given.TheFollowingPlayersJoinGame(game, scenario.players);
@@ -31,12 +30,13 @@ namespace _2CP.Tests
             Then.GameStatusIs(game, scenario.expectedStatus);
             Then.GameHasExpectedNumberOfPlayers(game, scenario.players.Count);
             Then.GameHasExpectedNumberOfRoundsScored(game, scenario.expectedRoundsScored);
+            Then.GameHasExpectedNumberOfErrors(game, scenario.expectedNumberOfErrors);
         }
 
         #region Theory Data
 
-        public static TheoryData<(string name, int totalPlayers, int totalRounds, List<Player> players, int playRounds, GameStatus expectedStatus, int expectedRoundsScored)> TheoryDataForNewGameScenarios =>
-            new TheoryData<(string name, int totalPlayers, int totalRounds, List<Player> players, int playRounds, GameStatus expectedStatus, int expectedRoundsScored)>
+        public static TheoryData<(string name, int totalPlayers, int totalRounds, List<Player> players, int playRounds, GameStatus expectedStatus, int expectedRoundsScored, int expectedNumberOfErrors)> TheoryDataForNewGameScenarios =>
+            new TheoryData<(string name, int totalPlayers, int totalRounds, List<Player> players, int playRounds, GameStatus expectedStatus, int expectedRoundsScored, int expectedNumberOfErrors)>
             {
                 (
                     name: "Scenario 1: 2 of 2 Players Joined, 1 of 1 Rounds Played: Expect Game Over",
@@ -48,7 +48,8 @@ namespace _2CP.Tests
                     },
                     playRounds: 1,
                     expectedStatus: GameStatus.GameOver,
-                    expectedRoundsScored: 1
+                    expectedRoundsScored: 1,
+                    expectedNumberOfErrors: 0
                 ),
                 (
                     name: "Scenario 2: 1 of 2 Players Joined: Expect Awaiting Players, No rounds scored",
@@ -59,7 +60,8 @@ namespace _2CP.Tests
                     },
                     playRounds: 0,
                     expectedStatus: GameStatus.AwaitingPlayers,
-                    expectedRoundsScored: 0
+                    expectedRoundsScored: 0,
+                    expectedNumberOfErrors: 0
                 ),
                 (
                     name: "Scenario 3: 1 of 2 Players Joined: Expect Awaiting Players, Try Play Round, No rounds scored",
@@ -70,7 +72,8 @@ namespace _2CP.Tests
                     },
                     playRounds: 1,
                     expectedStatus: GameStatus.AwaitingPlayers,
-                    expectedRoundsScored: 0
+                    expectedRoundsScored: 0,
+                    expectedNumberOfErrors: 0
                 ),
                 (
                     name: "Scenario 4: 2 of 2 Players Joined: 1 or 2 Rounds Played, Expect Game InProgress",
@@ -82,7 +85,8 @@ namespace _2CP.Tests
                     },
                     playRounds: 1,
                     expectedStatus: GameStatus.InProgress,
-                    expectedRoundsScored: 1
+                    expectedRoundsScored: 1,
+                    expectedNumberOfErrors: 0
                 ),
                 (
                     name: "Scenario 5: Max Players: Max Rounds (all played), Expect Game Over",
@@ -98,51 +102,58 @@ namespace _2CP.Tests
                     },
                     playRounds: 5,
                     expectedStatus: GameStatus.GameOver,
-                    expectedRoundsScored: 5
+                    expectedRoundsScored: 5,
+                    expectedNumberOfErrors: 0
                 ),
                 (
-                    name: "Scenario 6: Invalid number of players (> max). Expect Game Invalid",
+                    name: "Scenario 6: Invalid number of players (> max). Expect Game Invalid and 1 errors",
                     totalPlayers: 8,
                     totalRounds: 5,
-                    players: new List<Player> {
-                        new Player("bob")
-                    },
+                    players: new List<Player>(),
                     playRounds: 5,
                     expectedStatus: GameStatus.Invalid,
-                    expectedRoundsScored: 0
+                    expectedRoundsScored: 0,
+                    expectedNumberOfErrors: 1
                 ),
                 (
-                    name: "Scenario 7: Invalid number of players (< min). Expect Game Invalid",
+                    name: "Scenario 7: Invalid number of players (< min). Expect Game Invalid and 1 errors",
                     totalPlayers: 1,
                     totalRounds: 5,
-                    players: new List<Player> {
-                        new Player("bob"),
-                    },
+                    players: new List<Player>(),
                     playRounds: 5,
                     expectedStatus: GameStatus.Invalid,
-                    expectedRoundsScored: 0
+                    expectedRoundsScored: 0,
+                    expectedNumberOfErrors: 1
                 ),
                 (
-                    name: "Scenario 8: Invalid number of rounds (> max). Expect Game Invalid",
-                    totalPlayers: 1,
+                    name: "Scenario 8: Invalid number of rounds (> max). Expect Game Invalid and 1 errors",
+                    totalPlayers: 2,
                     totalRounds: 6,
-                    players: new List<Player> {
-                        new Player("bob"),
-                    },
+                    players: new List<Player>(),
                     playRounds: 5,
                     expectedStatus: GameStatus.Invalid,
-                    expectedRoundsScored: 0
+                    expectedRoundsScored: 0,
+                    expectedNumberOfErrors: 1
                 ),
                 (
-                    name: "Scenario 9: Invalid number of rounds (< min). Expect Game Invalid",
-                    totalPlayers: 1,
+                    name: "Scenario 9: Invalid number of rounds (< min). Expect Game Invalid and 1 errors",
+                    totalPlayers: 2,
                     totalRounds: 0,
-                    players: new List<Player> {
-                        new Player("bob"),
-                    },
+                    players: new List<Player>(),
                     playRounds: 5,
                     expectedStatus: GameStatus.Invalid,
-                    expectedRoundsScored: 0
+                    expectedRoundsScored: 0,
+                    expectedNumberOfErrors: 1
+                ),
+                (
+                    name: "Scenario 10: Invalid number of players and rounds. Expect Game Invalid and 2 errors",
+                    totalPlayers: 0,
+                    totalRounds: 0,
+                    players: new List<Player>(),
+                    playRounds: 5,
+                    expectedStatus: GameStatus.Invalid,
+                    expectedRoundsScored: 0,
+                    expectedNumberOfErrors: 2
                 )
            };
 

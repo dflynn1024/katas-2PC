@@ -14,11 +14,13 @@ namespace _2CP.Game
         public GameStatus Status { get; private set; }
         public IList<Player> Players { get;  }
         public IList<Round> Rounds { get; }
+        public IList<string> Errors { get; }
 
         public TwoCardPokerGame(IValidator<TwoCardPokerGame> validator, int requiredPlayers, int numberOfRounds)
         {
             RequiredPlayers = requiredPlayers;
             NumberOfRounds = numberOfRounds;
+            Errors = new List<string>();
 
             RunValidations(validator);
 
@@ -43,7 +45,10 @@ namespace _2CP.Game
                 ? GameStatus.GameOver
                 : GameStatus.InProgress;
         }
-
+        
+        /// <summary>
+        /// Join Player to Game. Once required players has been met, additional join players will be ignored.
+        /// </summary>
         public void Join(Player player)
         {
             if (!this.CanAddMorePlayers())
@@ -62,9 +67,13 @@ namespace _2CP.Game
         {
             var result = validator.Validate(this);
 
-            if (!result.IsValid)
+            if (result.IsValid) return;
+
+            Status = GameStatus.Invalid;
+
+            foreach (var validationFailure in result.Errors)
             {
-                Status = GameStatus.Invalid;
+                Errors.Add($"Property {validationFailure.PropertyName} failed validation. Error was: {validationFailure.ErrorMessage}");
             }
         }
 

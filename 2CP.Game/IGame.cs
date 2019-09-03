@@ -10,6 +10,7 @@ namespace _2CP.Game
         IList<Player> Players { get; }
         IList<Round> Rounds { get; }
         void Join(Player player);
-        void PlayRound();       
+        void PlayRound();
+        IList<string> Errors { get; }
     }
 }

@@ -5,19 +5,24 @@ namespace _2CP.Tests.Shared_Steps.Thens
 {
     public static class Then
     {
-        public static void GameStatusIs(IGame game, GameStatus expectedStatus)
+        public static void GameStatusIs(IGame game, GameStatus expected)
         {
-            game.Status.Should().Be(expectedStatus);
+            game.Status.Should().Be(expected);
         }
 
-        public static void GameHasExpectedNumberOfPlayers(IGame game, int expectedNumberOfPlayers)
+        public static void GameHasExpectedNumberOfPlayers(IGame game, int expected)
         {
-            game.Players?.Count.Should().Be(expectedNumberOfPlayers);
+            game.Players?.Count.Should().Be(expected);
         }
 
-        public static void GameHasExpectedNumberOfRoundsScored(IGame game, int expectedNumberOfRounds)
+        public static void GameHasExpectedNumberOfRoundsScored(IGame game, int expected)
         {
-            game.Rounds?.Count.Should().Be(expectedNumberOfRounds);
+            game.Rounds?.Count.Should().Be(expected);
+        }
+
+        public static void GameHasExpectedNumberOfErrors(IGame game, int expected)
+        {
+            game.Errors?.Count.Should().Be(expected);
         }
     }
 }
