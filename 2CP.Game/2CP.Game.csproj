@@ -5,4 +5,8 @@
     <RootNamespace>_2CP.Game</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="8.4.0" />
+  </ItemGroup>
+
 </Project>

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using _2CP.Game;
+﻿using _2CP.Game;
 
 namespace _2CP.Tests.Shared_Steps.Whens
 {

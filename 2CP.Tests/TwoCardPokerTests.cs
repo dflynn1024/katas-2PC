@@ -2,8 +2,10 @@
 using _2CP.Tests.Fixtures;
 using _2CP.Tests.Shared_Steps.Givens;
 using System.Collections.Generic;
+using _2CP.Game.Validators;
 using _2CP.Tests.Shared_Steps.Thens;
 using _2CP.Tests.Shared_Steps.Whens;
+using FluentValidation;
 using Xunit;
 
 namespace _2CP.Tests
@@ -16,6 +18,7 @@ namespace _2CP.Tests
         public TwoCardPokerTests(GameServerFixture fixture)
         {
             _fixture = fixture;
+            _fixture.RegisterDependency<IValidator<TwoCardPokerGame>>(new TwoCardPokerGameValidator());
         }
 
         [Theory(DisplayName = "Game Server Tests")]

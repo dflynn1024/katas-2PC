@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
-using _2CP.Game.Extensions;
+﻿using _2CP.Game.Extensions;
+using FluentValidation;
+using System.Collections.Generic;
 
 namespace _2CP.Game
 {
     /// <summary>
-    /// Two Card Poker Game
+    /// Two Card Poker Game according to specification: https://github.com/dflynn1024/katas-2PC/blob/master/README.md
     /// </summary>
     public class TwoCardPokerGame : IGame
     {
@@ -14,16 +15,14 @@ namespace _2CP.Game
         public IList<Player> Players { get;  }
         public IList<Round> Rounds { get; }
 
-        public TwoCardPokerGame(int requiredPlayers, int numberOfRounds)
+        public TwoCardPokerGame(IValidator<TwoCardPokerGame> validator, int requiredPlayers, int numberOfRounds)
         {
             RequiredPlayers = requiredPlayers;
             NumberOfRounds = numberOfRounds;
 
-            ValidatePlayers();
-            ValidateRounds();
+            RunValidations(validator);
 
-            if (this.Status == GameStatus.Invalid)
-                return;
+            if (Status == GameStatus.Invalid) return;
 
             Status = GameStatus.AwaitingPlayers;
             Players = new List<Player>(requiredPlayers);
@@ -31,7 +30,7 @@ namespace _2CP.Game
         }
 
         /// <summary>
-        /// Run Game
+        /// Play next game round. Game Status change to GameOver when there are no more rounds to play.
         /// </summary>
         public void PlayRound()
         {
@@ -59,23 +58,16 @@ namespace _2CP.Game
 
         #region Private Helpers
 
-        private void ValidatePlayers()
+        private void RunValidations(IValidator<TwoCardPokerGame> validator)
         {
-            const int minPlayers = 2;
-            const int maxPlayers = 6;
+            var result = validator.Validate(this);
 
-            if(this.RequiredPlayers < minPlayers || this.RequiredPlayers > maxPlayers)
-                this.Status = GameStatus.Invalid;
+            if (!result.IsValid)
+            {
+                Status = GameStatus.Invalid;
+            }
         }
 
-        private void ValidateRounds()
-        {
-            const int minRounds = 1;
-            const int maxRounds = 5;
-
-            if (this.NumberOfRounds < minRounds || this.NumberOfRounds > maxRounds)
-                this.Status = GameStatus.Invalid;
-        }
         #endregion
     }
 }
