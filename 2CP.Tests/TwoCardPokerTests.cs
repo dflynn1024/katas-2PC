@@ -22,21 +22,21 @@ namespace _2CP.Tests
 
         [Theory(DisplayName = "Game Server Tests")]
         [MemberData(nameof(TheoryDataForNewGameScenarios))]
-        public void NewGameScenarios((string name, int totalPlayers, int totalRounds, List<Player> players, int playRounds, GameStatus expectedStatus, int expectedRoundsScored, int expectedNumberOfErrors) scenario)
+        public void NewGameScenarios((string name, int totalPlayers, int totalRounds, List<Player> players, int playRounds, GameStatus expectedStatus, int expectedPlayersJoined, int expectedRoundsScored, int expectedNumberOfErrors) scenario)
         {
             Given.IAmStartingANewGame(_fixture.GameServer, scenario.totalPlayers, scenario.totalRounds, out var game);
             Given.TheFollowingPlayersJoinGame(game, scenario.players);
             When.TheFollowingNumberOfRoundsArePlayed(game, scenario.playRounds);
             Then.GameStatusIs(game, scenario.expectedStatus);
-            Then.GameHasExpectedNumberOfPlayers(game, scenario.players.Count);
+            Then.GameHasExpectedNumberOfPlayers(game, scenario.expectedPlayersJoined);
             Then.GameHasExpectedNumberOfRoundsScored(game, scenario.expectedRoundsScored);
             Then.GameHasExpectedNumberOfErrors(game, scenario.expectedNumberOfErrors);
         }
 
         #region Theory Data
 
-        public static TheoryData<(string name, int totalPlayers, int totalRounds, List<Player> players, int playRounds, GameStatus expectedStatus, int expectedRoundsScored, int expectedNumberOfErrors)> TheoryDataForNewGameScenarios =>
-            new TheoryData<(string name, int totalPlayers, int totalRounds, List<Player> players, int playRounds, GameStatus expectedStatus, int expectedRoundsScored, int expectedNumberOfErrors)>
+        public static TheoryData<(string name, int totalPlayers, int totalRounds, List<Player> players, int playRounds, GameStatus expectedStatus, int expectedPlayersJoined, int expectedRoundsScored, int expectedNumberOfErrors)> TheoryDataForNewGameScenarios =>
+            new TheoryData<(string name, int totalPlayers, int totalRounds, List<Player> players, int playRounds, GameStatus expectedStatus, int expectedPlayersJoined, int expectedRoundsScored, int expectedNumberOfErrors)>
             {
                 (
                     name: "Scenario 1: 2 of 2 Players Joined, 1 of 1 Rounds Played: Expect Game Over",
@@ -48,6 +48,7 @@ namespace _2CP.Tests
                     },
                     playRounds: 1,
                     expectedStatus: GameStatus.GameOver,
+                    expectedPlayersJoined: 2,
                     expectedRoundsScored: 1,
                     expectedNumberOfErrors: 0
                 ),
@@ -60,6 +61,7 @@ namespace _2CP.Tests
                     },
                     playRounds: 0,
                     expectedStatus: GameStatus.AwaitingPlayers,
+                    expectedPlayersJoined: 1,
                     expectedRoundsScored: 0,
                     expectedNumberOfErrors: 0
                 ),
@@ -72,6 +74,7 @@ namespace _2CP.Tests
                     },
                     playRounds: 1,
                     expectedStatus: GameStatus.AwaitingPlayers,
+                    expectedPlayersJoined: 1,
                     expectedRoundsScored: 0,
                     expectedNumberOfErrors: 0
                 ),
@@ -85,6 +88,7 @@ namespace _2CP.Tests
                     },
                     playRounds: 1,
                     expectedStatus: GameStatus.InProgress,
+                    expectedPlayersJoined: 2,
                     expectedRoundsScored: 1,
                     expectedNumberOfErrors: 0
                 ),
@@ -102,6 +106,7 @@ namespace _2CP.Tests
                     },
                     playRounds: 5,
                     expectedStatus: GameStatus.GameOver,
+                    expectedPlayersJoined: 6,
                     expectedRoundsScored: 5,
                     expectedNumberOfErrors: 0
                 ),
@@ -112,6 +117,7 @@ namespace _2CP.Tests
                     players: new List<Player>(),
                     playRounds: 5,
                     expectedStatus: GameStatus.Invalid,
+                    expectedPlayersJoined: 0,
                     expectedRoundsScored: 0,
                     expectedNumberOfErrors: 1
                 ),
@@ -122,6 +128,7 @@ namespace _2CP.Tests
                     players: new List<Player>(),
                     playRounds: 5,
                     expectedStatus: GameStatus.Invalid,
+                    expectedPlayersJoined: 0,
                     expectedRoundsScored: 0,
                     expectedNumberOfErrors: 1
                 ),
@@ -132,6 +139,7 @@ namespace _2CP.Tests
                     players: new List<Player>(),
                     playRounds: 5,
                     expectedStatus: GameStatus.Invalid,
+                    expectedPlayersJoined: 0,
                     expectedRoundsScored: 0,
                     expectedNumberOfErrors: 1
                 ),
@@ -142,6 +150,7 @@ namespace _2CP.Tests
                     players: new List<Player>(),
                     playRounds: 5,
                     expectedStatus: GameStatus.Invalid,
+                    expectedPlayersJoined: 0,
                     expectedRoundsScored: 0,
                     expectedNumberOfErrors: 1
                 ),
@@ -152,8 +161,22 @@ namespace _2CP.Tests
                     players: new List<Player>(),
                     playRounds: 5,
                     expectedStatus: GameStatus.Invalid,
+                    expectedPlayersJoined: 0,
                     expectedRoundsScored: 0,
                     expectedNumberOfErrors: 2
+                ),
+                (
+                    name: "Scenario 11: Try to join more than required number of players. Expect only first x players to be joined.",
+                    totalPlayers: 2,
+                    totalRounds: 1,
+                    players: new List<Player>{ new Player("bob"),
+                        new Player("gill"),
+                        new Player("tim")},
+                    playRounds: 1,
+                    expectedStatus: GameStatus.GameOver,
+                    expectedPlayersJoined: 2,
+                    expectedRoundsScored: 1,
+                    expectedNumberOfErrors: 0
                 )
            };
 
