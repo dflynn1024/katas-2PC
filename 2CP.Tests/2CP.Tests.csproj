@@ -21,11 +21,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\2CP.Game\2CP.Game.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Shared Steps\Thens\" />
-    <Folder Include="Shared Steps\Whens\" />
   </ItemGroup> 
 
 </Project>

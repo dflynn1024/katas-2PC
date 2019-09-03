@@ -1,11 +1,15 @@
-﻿namespace _2CP.Game
+﻿using System;
+
+namespace _2CP.Game
 {
     public class Player
     {
-        public string Name { get; private set; }
+        public Guid Id { get; }
+        public string Name { get; }
 
         public Player(string name)
         {
+            Id = Guid.NewGuid();
             Name = name;
         }
     }
