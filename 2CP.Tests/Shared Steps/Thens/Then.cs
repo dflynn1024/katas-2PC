@@ -12,12 +12,12 @@ namespace _2CP.Tests.Shared_Steps.Thens
 
         public static void GameHasExpectedNumberOfPlayers(IGame game, int expectedNumberOfPlayers)
         {
-            game.Players.Count.Should().Be(expectedNumberOfPlayers);
+            game.Players?.Count.Should().Be(expectedNumberOfPlayers);
         }
 
         public static void GameHasExpectedNumberOfRoundsScored(IGame game, int expectedNumberOfRounds)
         {
-            game.Rounds.Count.Should().Be(expectedNumberOfRounds);
+            game.Rounds?.Count.Should().Be(expectedNumberOfRounds);
         }
     }
 }

@@ -5,6 +5,7 @@
         AwaitingPlayers,
         ReadyToBegin,
         InProgress,
-        GameOver
+        GameOver,
+        Invalid
     }
 }

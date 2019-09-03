@@ -19,6 +19,12 @@ namespace _2CP.Game
             RequiredPlayers = requiredPlayers;
             NumberOfRounds = numberOfRounds;
 
+            ValidatePlayers();
+            ValidateRounds();
+
+            if (this.Status == GameStatus.Invalid)
+                return;
+
             Status = GameStatus.AwaitingPlayers;
             Players = new List<Player>(requiredPlayers);
             Rounds = new List<Round>(numberOfRounds);
@@ -50,5 +56,26 @@ namespace _2CP.Game
                 ? GameStatus.AwaitingPlayers
                 : GameStatus.ReadyToBegin;
         }
+
+        #region Private Helpers
+
+        private void ValidatePlayers()
+        {
+            const int minPlayers = 2;
+            const int maxPlayers = 6;
+
+            if(this.RequiredPlayers < minPlayers || this.RequiredPlayers > maxPlayers)
+                this.Status = GameStatus.Invalid;
+        }
+
+        private void ValidateRounds()
+        {
+            const int minRounds = 1;
+            const int maxRounds = 5;
+
+            if (this.NumberOfRounds < minRounds || this.NumberOfRounds > maxRounds)
+                this.Status = GameStatus.Invalid;
+        }
+        #endregion
     }
 }

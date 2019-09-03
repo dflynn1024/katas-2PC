@@ -96,6 +96,50 @@ namespace _2CP.Tests
                     playRounds: 5,
                     expectedStatus: GameStatus.GameOver,
                     expectedRoundsScored: 5
+                ),
+                (
+                    name: "Scenario 6: Invalid number of players (> max). Expect Game Invalid",
+                    totalPlayers: 8,
+                    totalRounds: 5,
+                    players: new List<Player> {
+                        new Player("bob")
+                    },
+                    playRounds: 5,
+                    expectedStatus: GameStatus.Invalid,
+                    expectedRoundsScored: 0
+                ),
+                (
+                    name: "Scenario 7: Invalid number of players (< min). Expect Game Invalid",
+                    totalPlayers: 1,
+                    totalRounds: 5,
+                    players: new List<Player> {
+                        new Player("bob"),
+                    },
+                    playRounds: 5,
+                    expectedStatus: GameStatus.Invalid,
+                    expectedRoundsScored: 0
+                ),
+                (
+                    name: "Scenario 8: Invalid number of rounds (> max). Expect Game Invalid",
+                    totalPlayers: 1,
+                    totalRounds: 6,
+                    players: new List<Player> {
+                        new Player("bob"),
+                    },
+                    playRounds: 5,
+                    expectedStatus: GameStatus.Invalid,
+                    expectedRoundsScored: 0
+                ),
+                (
+                    name: "Scenario 9: Invalid number of rounds (< min). Expect Game Invalid",
+                    totalPlayers: 1,
+                    totalRounds: 0,
+                    players: new List<Player> {
+                        new Player("bob"),
+                    },
+                    playRounds: 5,
+                    expectedStatus: GameStatus.Invalid,
+                    expectedRoundsScored: 0
                 )
            };
 
