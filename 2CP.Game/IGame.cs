@@ -9,7 +9,8 @@ namespace _2CP.Game
         GameStatus Status { get; }
         IList<Player> Players { get; }
         IList<Round> Rounds { get; }
-        void Join(Player player);
+        Player Winner { get; }
+        void Join(string playerName);
         void PlayRound();
         IList<string> Errors { get; }
     }

@@ -16,6 +16,8 @@ namespace _2CP.Game
         public IList<Round> Rounds { get; }
         public IList<string> Errors { get; }
 
+        public Player Winner { get; private set; }
+
         public TwoCardPokerGame(IValidator<TwoCardPokerGame> validator, int requiredPlayers, int numberOfRounds)
         {
             RequiredPlayers = requiredPlayers;
@@ -44,17 +46,20 @@ namespace _2CP.Game
             Status = Rounds.Count == NumberOfRounds
                 ? GameStatus.GameOver
                 : GameStatus.InProgress;
+
+            if(Status == GameStatus.GameOver)
+                GameOver();
         }
         
         /// <summary>
         /// Join Player to Game. Once required players has been met, additional join players will be ignored.
         /// </summary>
-        public void Join(Player player)
+        public void Join(string playerName)
         {
             if (!this.CanAddMorePlayers())
                 return;
 
-            Players.Add(player);
+            Players.Add(new Player(playerName));
 
             Status = Players.Count < RequiredPlayers
                 ? GameStatus.AwaitingPlayers
@@ -73,8 +78,13 @@ namespace _2CP.Game
 
             foreach (var validationFailure in result.Errors)
             {
-                Errors.Add($"Property {validationFailure.PropertyName} failed validation. Error was: {validationFailure.ErrorMessage}");
+                Errors.Add(validationFailure.ErrorMessage);
             }
+        }
+
+        private void GameOver()
+        {
+            Winner = Players[0];
         }
 
         #endregion
