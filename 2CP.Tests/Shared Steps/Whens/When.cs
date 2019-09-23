@@ -12,5 +12,16 @@ namespace _2CP.Tests.Shared_Steps.Whens
                 rounds--;
             }
         }
+
+        public static void TheDealerShufflesTheDeckXTimes(IDealer dealer, Deck before, out Deck after, int numberOfShuffles)
+        {
+            after = before;
+
+            while (numberOfShuffles > 0)
+            {
+                after = dealer.Shuffle(before);
+                numberOfShuffles--;
+            }
+        }
     }
 }

@@ -24,5 +24,19 @@ namespace _2CP.Tests.Shared_Steps.Thens
         {
             game.Errors?.Count.Should().Be(expected);
         }
+
+        public static void XCardsShouldBeInDifferentPositions(Deck deckBeforeShuffle, Deck deckAfterShuffle, int cardsInDifferentPositions)
+        {
+
+            var notSame = 0;
+
+            for (var i = 0; i < 52; i++)
+            {
+                if (deckBeforeShuffle.Cards[i] != deckAfterShuffle.Cards[i])
+                    notSame++;
+            }
+
+            notSame.Should().BeGreaterOrEqualTo(cardsInDifferentPositions);
+        }
     }
 }

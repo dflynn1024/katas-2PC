@@ -17,5 +17,10 @@ namespace _2CP.Tests.Shared_Steps.Givens
                 game.Join(player);
             }
         }
+
+        public static void ANewDeckOfCards(out Deck deck)
+        {
+            deck = new Deck();
+        }
     }
 }

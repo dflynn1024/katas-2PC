@@ -7,7 +7,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "2CP.Game", "2CP.Game\2CP.Ga
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "2CP.Tests", "2CP.Tests\2CP.Tests.csproj", "{1DDA6F2A-1212-4DDD-8068-8425D57FA0A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2PC.App", "2PC.App\2PC.App.csproj", "{676B7308-133A-46E3-B1E0-F39245C02B1B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "2PC.App", "2PC.App\2PC.App.csproj", "{676B7308-133A-46E3-B1E0-F39245C02B1B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{55E22B94-D2BA-4F82-8601-7A11CD9FDD61}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
