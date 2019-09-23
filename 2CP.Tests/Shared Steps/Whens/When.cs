@@ -1,4 +1,5 @@
 ﻿using _2CP.Game;
+using System.Collections.Generic;
 
 namespace _2CP.Tests.Shared_Steps.Whens
 {
@@ -22,6 +23,11 @@ namespace _2CP.Tests.Shared_Steps.Whens
                 after = dealer.Shuffle(before);
                 numberOfShuffles--;
             }
+        }
+
+        public static void TheDealerDealsXCards(IDealer dealer, Deck deck, IList<Player> players, int cards)
+        {
+            dealer.Deal(deck, players, cards);
         }
     }
 }

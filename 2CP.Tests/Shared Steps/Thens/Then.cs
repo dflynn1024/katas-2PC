@@ -1,5 +1,6 @@
 ﻿using _2CP.Game;
 using FluentAssertions;
+using System.Collections.Generic;
 
 namespace _2CP.Tests.Shared_Steps.Thens
 {
@@ -37,6 +38,19 @@ namespace _2CP.Tests.Shared_Steps.Thens
             }
 
             notSame.Should().BeGreaterOrEqualTo(cardsInDifferentPositions);
+        }
+
+        public static void EachPlayerShouldHaveXCardsInHand(IList<Player> players, int cards)
+        {
+            foreach (var player in players)
+            {
+                player.Hand.Cards.Should().HaveCount(cards, $"{player.Name} has been dealt {cards} cards.");
+            }
+        }
+
+        public static void DeckShouldHaveXCardsLeft(Deck deck, int cardsLeft)
+        {
+            deck.Cards.Should().HaveCount(cardsLeft);
         }
     }
 }

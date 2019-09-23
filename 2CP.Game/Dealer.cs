@@ -10,9 +10,17 @@ namespace _2CP.Game
             return deck.Shuffle();
         }
 
-        public void Deal(Deck deck, IList<Player> players)
+        public void Deal(Deck deck, IList<Player> players, int cardsToDeal)
         {
-            throw new System.NotImplementedException();
+            while (cardsToDeal > 0)
+            {
+                foreach (var player in players)
+                {
+                    player.AssignCard(deck.Pop());
+                }
+
+                cardsToDeal--;
+            }
         }
     }
 }

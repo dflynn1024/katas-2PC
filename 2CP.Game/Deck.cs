@@ -22,6 +22,14 @@ namespace _2CP.Game
             Cards = cards;
         }
 
+        public Card Pop()
+        {
+            var index = Cards.Count - 1;
+            var card = Cards[index];
+            Cards.RemoveAt(index);
+            return card;
+        }
+
         public object Clone()
         {
             var cards = Cards.ToList().ConvertAll(c => c.Clone() as Card);
