@@ -40,16 +40,12 @@ namespace _2CP.Game
 
         private static IList<Card> NewDeck()
         {
-            var cards = new List<Card>(52);
-
-            cards.AddRange(
-                from suit in EnumExtensions.GetValues<Suit>()
+            return (from suit in EnumExtensions.GetValues<Suit>()
                 from rank in EnumExtensions.GetValues<Rank>()
-                select new Card(rank, suit));
-
-            return cards;
+                select new Card(rank, suit)).ToList();
 
         }
+        
         #endregion
     }
 }
