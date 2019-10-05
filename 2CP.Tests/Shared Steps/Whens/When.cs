@@ -16,13 +16,13 @@ namespace _2CP.Tests.Shared_Steps.Whens
             }
         }
 
-        public static void TheDealerShufflesTheDeckXTimes(IDealer dealer, Deck before, out Deck after, int numberOfShuffles)
+        public static void TheShufflerShufflesTheDeckXTimes(IShuffler shuffler, Deck before, out Deck after, int numberOfShuffles)
         {
-            after = before;
+            after = (Deck)before.Clone();
 
             while (numberOfShuffles > 0)
             {
-                after = dealer.Shuffle(before);
+                after = shuffler.Shuffle(before);
                 numberOfShuffles--;
             }
         }

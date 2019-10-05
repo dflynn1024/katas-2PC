@@ -1,6 +1,4 @@
-﻿using _2CP.Game.Model;
-
-namespace _2CP.Game.Actors
+﻿namespace _2CP.Game.Actors
 {
     public interface IGameServer
     {

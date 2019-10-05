@@ -1,14 +1,20 @@
 ﻿using System.Collections.Generic;
-using _2CP.Game.Extensions;
 using _2CP.Game.Model;
 
 namespace _2CP.Game.Actors
 {
     public class Dealer : IDealer
     {
+        private readonly IShuffler _shuffler;
+
+        public Dealer(IShuffler shuffler)
+        {
+            _shuffler = shuffler;
+        }
+
         public Deck Shuffle(Deck deck)
         {
-            return deck.Shuffle();
+            return _shuffler.Shuffle(deck);
         }
 
         public void Deal(Deck deck, IList<Player> players, int cardsToDeal)

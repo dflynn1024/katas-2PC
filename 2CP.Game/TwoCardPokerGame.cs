@@ -1,7 +1,7 @@
-﻿using _2CP.Game.Extensions;
-using FluentValidation;
+﻿using FluentValidation;
 using System.Collections.Generic;
 using _2CP.Game.Actors;
+using _2CP.Game.Facts;
 using _2CP.Game.Model;
 
 namespace _2CP.Game

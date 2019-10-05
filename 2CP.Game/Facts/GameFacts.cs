@@ -1,8 +1,8 @@
 ﻿using _2CP.Game.Model;
 
-namespace _2CP.Game.Extensions
+namespace _2CP.Game.Facts
 {
-    public static class GameExtensions
+    internal static class GameFacts
     {
         public static bool CanPlayRound(this IGame game)
         {

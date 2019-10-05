@@ -1,5 +1,4 @@
-﻿using _2CP.Game;
-using _2CP.Tests.Fixtures;
+﻿using _2CP.Tests.Fixtures;
 using _2CP.Tests.Shared_Steps.Givens;
 using _2CP.Tests.Shared_Steps.Thens;
 using _2CP.Tests.Shared_Steps.Whens;
@@ -15,23 +14,16 @@ namespace _2CP.Tests
 
         public DealerTests(SystemUnderTestFixture<Dealer> fixture)
         {
+            fixture.RegisterDependency<IShuffler>(new Shuffler());
             _dealer = fixture.SystemUnderTest;
         }
-
-        [Theory(DisplayName = "Shuffle Scenarios")]
-        [MemberData(nameof(TheoryDataForShuffleScenarios))]
-        public void ShuffleScenarios((string name, int shuffles, int expectAtLeastXCardsDifferent) scenario)
-        {
-            Given.ANewDeckOfCards(out var deck);
-            When.TheDealerShufflesTheDeckXTimes(_dealer, deck, out var shuffledDeck, scenario.shuffles);
-            Then.XCardsShouldBeInDifferentPositions(deck, shuffledDeck, scenario.expectAtLeastXCardsDifferent);
-        }
-
+        
         [Theory(DisplayName = "Deal Scenarios")]
-        [MemberData(nameof(TheoryDataForDealScenarios))]
-        public void DealScenarios((string name, IList<Player> players, int cardsToDeal, int expectedCardsInHand, int expectedCardsLeft) scenario)
+        [MemberData(nameof(DealScenarios))]
+        public void DealCardsToPlayers((string name, IList<Player> players, int cardsToDeal, int expectedCardsInHand, int expectedCardsLeft) scenario)
         {
             Given.ANewDeckOfCards(out var deck);
+            Given.TheDealerShufflesTheDeck(_dealer, deck);
             When.TheDealerDealsXCards(_dealer, deck, scenario.players, scenario.cardsToDeal);
             Then.EachPlayerShouldHaveXCardsInHand(scenario.players, scenario.expectedCardsInHand);
             Then.DeckShouldHaveXCardsLeft(deck, scenario.expectedCardsLeft);
@@ -39,27 +31,7 @@ namespace _2CP.Tests
 
         #region Theory Data
 
-        public static TheoryData<(string name, int shuffles, int expectAtLeastXCardsDifferent)> TheoryDataForShuffleScenarios =>
-            new TheoryData<(string name, int shuffles, int expectAtLeastXCardsDifferent)>
-            {
-                (
-                    name: "Scenario 1: Deck should be the same when no shuffles",
-                    shuffles: 0,
-                    expectAtLeastXCardsDifferent: 0
-                ),
-                (
-                    name: "Scenario 2: Expect at least 26 Cards different after 1 shuffle",
-                    shuffles: 1,
-                    expectAtLeastXCardsDifferent: 26
-                ),
-                (
-                    name: "Scenario 3: Expect at least 26 Cards different after 9 shuffles",
-                    shuffles: 9,
-                    expectAtLeastXCardsDifferent: 26
-                )
-            };
-
-        public static TheoryData<(string name, IList<Player> players, int cardsToDeal, int expectedCardsInHand, int expectedCardsLeft)> TheoryDataForDealScenarios =>
+        public static TheoryData<(string name, IList<Player> players, int cardsToDeal, int expectedCardsInHand, int expectedCardsLeft)> DealScenarios =>
             new TheoryData<(string name, IList<Player> players, int cardsToDeal, int expectedCardsInHand, int expectedCardsLeft)>
             {
                 (
@@ -101,7 +73,5 @@ namespace _2CP.Tests
            };
 
         #endregion
-
-
     }
 }

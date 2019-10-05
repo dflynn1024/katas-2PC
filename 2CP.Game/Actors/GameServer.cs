@@ -1,5 +1,4 @@
-﻿using _2CP.Game.Model;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace _2CP.Game.Actors
 {
