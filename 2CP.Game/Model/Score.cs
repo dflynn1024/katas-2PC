@@ -1,4 +1,6 @@
-﻿namespace _2CP.Game
+﻿using _2CP.Game.Actors;
+
+namespace _2CP.Game.Model
 {
     public class Score
     {

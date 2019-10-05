@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace _2CP.Game
+namespace _2CP.Game.Model
 {
     public class Round
     {

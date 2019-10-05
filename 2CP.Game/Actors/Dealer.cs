@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using _2CP.Game.Extensions;
+using _2CP.Game.Model;
 
-namespace _2CP.Game
+namespace _2CP.Game.Actors
 {
     public class Dealer : IDealer
     {

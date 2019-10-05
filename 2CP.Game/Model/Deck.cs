@@ -1,9 +1,9 @@
 ﻿using System;
-using _2CP.Game.Extensions;
 using System.Collections.Generic;
 using System.Linq;
+using _2CP.Game.Extensions;
 
-namespace _2CP.Game
+namespace _2CP.Game.Model
 {
     /// <summary>
     /// Deck of 52 cards

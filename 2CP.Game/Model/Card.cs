@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace _2CP.Game
+namespace _2CP.Game.Model
 {
     public class Card : ICloneable
     {

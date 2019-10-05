@@ -1,4 +1,6 @@
 ﻿using _2CP.Game;
+using _2CP.Game.Actors;
+using _2CP.Game.Model;
 using _2CP.Game.Validators;
 using _2CP.Tests.Fixtures;
 using _2CP.Tests.Shared_Steps.Givens;
@@ -9,11 +11,11 @@ using Xunit;
 
 namespace _2CP.Tests
 {
-    public class TwoCardPokerTests : IClassFixture<SystemUnderTestFixture<GameServer>>
+    public class GameServerTests : IClassFixture<SystemUnderTestFixture<GameServer>>
     {
         private readonly SystemUnderTestFixture<GameServer> _fixture;
 
-        public TwoCardPokerTests(SystemUnderTestFixture<GameServer> fixture)
+        public GameServerTests(SystemUnderTestFixture<GameServer> fixture)
         {
             _fixture = fixture;
             _fixture.RegisterDependency<IValidator<TwoCardPokerGame>>(new TwoCardPokerGameValidator());

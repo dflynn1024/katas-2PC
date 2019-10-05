@@ -1,4 +1,7 @@
 ﻿using _2CP.Game;
+using _2CP.Game.Actors;
+using _2CP.Game.Model;
+
 // ReSharper disable InconsistentNaming
 
 namespace _2CP.Tests.Shared_Steps.Givens

@@ -4,6 +4,7 @@ using _2CP.Tests.Shared_Steps.Givens;
 using _2CP.Tests.Shared_Steps.Thens;
 using _2CP.Tests.Shared_Steps.Whens;
 using System.Collections.Generic;
+using _2CP.Game.Actors;
 using Xunit;
 
 namespace _2CP.Tests

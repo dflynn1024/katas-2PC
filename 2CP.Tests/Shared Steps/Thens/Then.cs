@@ -1,6 +1,8 @@
 ﻿using _2CP.Game;
 using FluentAssertions;
 using System.Collections.Generic;
+using _2CP.Game.Actors;
+using _2CP.Game.Model;
 
 namespace _2CP.Tests.Shared_Steps.Thens
 {

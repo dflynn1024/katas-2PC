@@ -1,4 +1,6 @@
-﻿namespace _2CP.Game.Extensions
+﻿using _2CP.Game.Model;
+
+namespace _2CP.Game.Extensions
 {
     public static class DeckExtensions
     {

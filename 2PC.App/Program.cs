@@ -1,5 +1,7 @@
 ﻿using System;
 using _2CP.Game;
+using _2CP.Game.Actors;
+using _2CP.Game.Model;
 using _2CP.Game.Validators;
 
 namespace _2PC.App

@@ -1,6 +1,7 @@
 ﻿using System;
+using _2CP.Game.Model;
 
-namespace _2CP.Game
+namespace _2CP.Game.Actors
 {
     public class Player
     {

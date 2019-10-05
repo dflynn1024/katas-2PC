@@ -1,6 +1,7 @@
-﻿using FluentValidation;
+﻿using _2CP.Game.Model;
+using FluentValidation;
 
-namespace _2CP.Game
+namespace _2CP.Game.Actors
 {
     public class GameServer : IGameServer
     {
