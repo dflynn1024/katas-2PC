@@ -10,11 +10,11 @@ namespace _2CP.Game.Actors
 
         public Hand Hand { get; }
 
-        public Player(string name)
+        public Player(string name, Hand hand = null)
         {
             Id = Guid.NewGuid();
             Name = name;
-            Hand = new Hand();
+            Hand = hand ?? new Hand();
         }
 
         public void AssignCard(Card card)

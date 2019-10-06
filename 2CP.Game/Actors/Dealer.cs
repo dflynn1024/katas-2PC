@@ -17,6 +17,9 @@ namespace _2CP.Game.Actors
             return _shuffler.Shuffle(deck);
         }
 
+        /// <summary>
+        /// Each player is dealt a card until all players have been dealt x cards.
+        /// </summary>
         public void Deal(Deck deck, IList<Player> players, int cardsToDeal)
         {
             while (cardsToDeal > 0)

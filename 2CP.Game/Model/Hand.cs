@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace _2CP.Game.Model
 {
@@ -9,9 +10,14 @@ namespace _2CP.Game.Model
     {
         public IList<Card> Cards { get; }
 
-        public Hand(int max = 2)
+        public Hand(IList<Card> cards = null)
         {
-            Cards = new List<Card>(max);
+            Cards = cards ?? new List<Card>();
+        }
+
+        public Hand(IEnumerable<string> cardShortNames)
+        {
+            Cards = cardShortNames.Select(shortName => new Card(shortName)).ToList();
         }
 
         public void AssignCard(Card card)

@@ -1,8 +1,10 @@
-﻿using _2CP.Game;
+﻿using System;
+using _2CP.Game;
 using FluentAssertions;
 using System.Collections.Generic;
 using _2CP.Game.Actors;
 using _2CP.Game.Model;
+using Castle.Core.Internal;
 
 namespace _2CP.Tests.Shared_Steps.Thens
 {
@@ -44,9 +46,29 @@ namespace _2CP.Tests.Shared_Steps.Thens
 
         public static void EachPlayerShouldHaveXCardsInHand(IList<Player> players, int cards)
         {
+            if (players.IsNullOrEmpty())
+                throw new ArgumentNullException(nameof(players), "players required for assertion!");
+
             foreach (var player in players)
             {
                 player.Hand.Cards.Should().HaveCount(cards, $"{player.Name} has been dealt {cards} cards.");
+            }
+        }
+
+        public static void EachPlayerShouldExpectedCardsInHand(IList<Player> players, IList<Hand> hands)
+        {
+            if(players.IsNullOrEmpty())
+                throw new ArgumentNullException(nameof(players), "players required for assertion!");
+
+            if (hands.IsNullOrEmpty())
+                throw new ArgumentNullException(nameof(hands), "hands required for assertion!");
+
+            if (players.Count != hands.Count)
+                throw new ArgumentNullException(nameof(hands), "same player & hand count required for assertion!");
+
+            for (var n=0; n<players.Count; n++)
+            {
+                players[n].Hand.Should().BeEquivalentTo(hands[n], $"{players[n].Name} has been dealt {players[n].Hand} cards.");
             }
         }
 

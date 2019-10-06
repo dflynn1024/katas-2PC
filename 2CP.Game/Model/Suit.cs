@@ -1,10 +1,16 @@
-﻿namespace _2CP.Game.Model
+﻿using _2CP.Game.Attributes;
+
+namespace _2CP.Game.Model
 {
     public enum Suit
     {
-        Diamonds=1,
-        Hearts=2,
-        Clubs=3,
-        Spades=4
+        [ShortName("♦")]
+        Diamonds =1,
+        [ShortName("♥")]
+        Hearts =2,
+        [ShortName("♣")]
+        Clubs =3,
+        [ShortName("♠")]
+        Spades =4
     }
 }
