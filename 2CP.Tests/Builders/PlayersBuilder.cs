@@ -15,12 +15,9 @@ namespace _2CP.Tests.Builders
 
         #region Private Helpers
 
-        private static List<Player> CreatePlayersFromNames(IReadOnlyCollection<string> names)
+        private static List<Player> CreatePlayersFromNames(IEnumerable<string> names)
         {
-            var players = new List<Player>(names.Count);
-            players.AddRange(names.Select(name => new Player(name)));
-
-            return players;
+            return names.Select(name => new Player(name)).ToList();
         }
 
         #endregion
