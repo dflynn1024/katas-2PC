@@ -25,10 +25,5 @@ namespace _2CP.Tests.Shared_Steps.Givens
         {
             deck = new Deck();
         }
-
-        public static void TheDealerShufflesTheDeck(IDealer dealer, Deck deck)
-        {
-            dealer.Shuffle(deck);
-        }
     }
 }
