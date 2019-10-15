@@ -15,7 +15,7 @@ namespace _2CP.Tests
 {
     public class DealerTests : IClassFixture<SystemUnderTestFixture<Dealer>>
     {
-        private readonly Dealer _dealer;
+        private readonly IDealer _dealer;
 
         public DealerTests(SystemUnderTestFixture<Dealer> fixture)
         {

@@ -13,19 +13,19 @@ namespace _2CP.Tests
 {
     public class GameServerTests : IClassFixture<SystemUnderTestFixture<GameServer>>
     {
-        private readonly SystemUnderTestFixture<GameServer> _fixture;
+        private readonly IGameServer _gameServer;
 
         public GameServerTests(SystemUnderTestFixture<GameServer> fixture)
         {
-            _fixture = fixture;
-            _fixture.RegisterDependency<IValidator<TwoCardPokerGame>>(new TwoCardPokerGameValidator());
+            fixture.RegisterDependency<IValidator<TwoCardPokerGame>>(new TwoCardPokerGameValidator());
+            _gameServer = fixture.SystemUnderTest;
         }
 
         [Theory(DisplayName = "Game Server Tests")]
         [MemberData(nameof(TheoryDataForNewGameScenarios))]
         public void NewGameScenarios((string name, int totalPlayers, int totalRounds, string[] players, int playRounds, GameStatus expectedStatus, int expectedPlayersJoined, int expectedRoundsScored, int expectedNumberOfErrors) scenario)
         {
-            Given.IAmStartingANewGame(_fixture.SystemUnderTest, scenario.totalPlayers, scenario.totalRounds, out var game);
+            Given.IAmStartingANewGame(_gameServer, scenario.totalPlayers, scenario.totalRounds, out var game);
             Given.TheFollowingPlayersJoinGame(game, scenario.players);
             When.TheFollowingNumberOfRoundsArePlayed(game, scenario.playRounds);
             Then.GameStatusIs(game, scenario.expectedStatus);

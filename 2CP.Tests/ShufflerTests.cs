@@ -9,7 +9,7 @@ namespace _2CP.Tests
 {
     public class ShufflerTests : IClassFixture<SystemUnderTestFixture<Shuffler>>
     {
-        private readonly Shuffler _shuffler;
+        private readonly IShuffler _shuffler;
 
         public ShufflerTests(SystemUnderTestFixture<Shuffler> fixture)
         {

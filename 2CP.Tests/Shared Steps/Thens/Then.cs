@@ -1,10 +1,10 @@
-﻿using System;
-using _2CP.Game;
-using FluentAssertions;
-using System.Collections.Generic;
+﻿using _2CP.Game;
 using _2CP.Game.Actors;
 using _2CP.Game.Model;
 using Castle.Core.Internal;
+using FluentAssertions;
+using System;
+using System.Collections.Generic;
 
 namespace _2CP.Tests.Shared_Steps.Thens
 {
@@ -32,12 +32,11 @@ namespace _2CP.Tests.Shared_Steps.Thens
 
         public static void XCardsShouldBeInDifferentPositions(Deck deckBeforeShuffle, Deck deckAfterShuffle, int cardsInDifferentPositions)
         {
-
             var notSame = 0;
 
             for (var i = 0; i < 52; i++)
             {
-                if (deckBeforeShuffle.Cards[i] != deckAfterShuffle.Cards[i])
+                if (!deckBeforeShuffle.Cards[i].Equals(deckAfterShuffle.Cards[i]))
                     notSame++;
             }
 
@@ -76,5 +75,24 @@ namespace _2CP.Tests.Shared_Steps.Thens
         {
             deck.Cards.Should().HaveCount(cardsLeft);
         }
+
+        public static void HandRankIs(HandRank actual, HandRank expected)
+        {
+            actual.Should().Be(expected);
+        }
+
+        public static void HandHighCardIs(Card actual, string expectedFromShortName)
+        {
+            actual.Should().Be(CreateCard(expectedFromShortName));
+        }
+
+        #region Private Helpers
+
+        private static Card CreateCard(string cardShortName)
+        {
+            return new Card(cardShortName);
+        }
+
+        #endregion
     }
 }

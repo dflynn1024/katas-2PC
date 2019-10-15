@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using _2CP.Game.Extensions;
 
 namespace _2CP.Game.Model
@@ -8,7 +7,8 @@ namespace _2CP.Game.Model
     {
         public Rank Rank { get; }
         public Suit Suit { get; }
-
+        public string ShortName => $"{Rank.ShortName()}{Suit.ShortName()}";
+    
         public Card(Rank rank, Suit suit)
         {
             Rank = rank;
@@ -31,7 +31,25 @@ namespace _2CP.Game.Model
 
         public override string ToString()
         {
-            return $"{nameof(Rank).First()}{nameof(Suit).First()}";
+            return this.ShortName;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return this.Equals((Card)obj);
+        }
+
+        protected bool Equals(Card other)
+        {
+            return Rank == other.Rank && Suit == other.Suit;
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return ((int) Rank * 397) ^ (int) Suit;
+            }
         }
     }
 }
