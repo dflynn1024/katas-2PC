@@ -19,7 +19,6 @@ namespace _2CP.Tests
 
         public DealerTests(SystemUnderTestFixture<Dealer> fixture)
         {
-            fixture.RegisterDependency<IShuffler>(new Shuffler());
             _dealer = fixture.SystemUnderTest;
         }
         

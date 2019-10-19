@@ -13,7 +13,6 @@ namespace _2CP.Tests
 
         public RankerTests(SystemUnderTestFixture<Ranker> fixture)
         {
-            fixture.RegisterDependency<IRanker>(new Ranker());
             _ranker = fixture.SystemUnderTest;
         }
         
