@@ -7,7 +7,7 @@ namespace _2CP.Game.Model
         public int Total { get; }
         public Player Player { get; }
 
-        public Score(int total, Player player)
+        public Score(Player player, int total)
         {
             Total = total;
             Player = player;

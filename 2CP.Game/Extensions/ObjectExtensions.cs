@@ -3,7 +3,7 @@ using JetBrains.Annotations;
 
 namespace _2CP.Game.Extensions
 {
-    internal static class ObjectExtensions
+    public static class ObjectExtensions
     {
         /// <summary>
         /// Returns true if object is null.

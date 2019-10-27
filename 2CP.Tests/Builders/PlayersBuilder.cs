@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using _2CP.Game.Actors;
+﻿using _2CP.Game.Actors;
+using _2CP.Game.Model;
 using FizzWare.NBuilder;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace _2CP.Tests.Builders
 {
@@ -10,16 +11,13 @@ namespace _2CP.Tests.Builders
         public static ISingleObjectBuilder<List<Player>> WithPlayers(this ISingleObjectBuilder<List<Player>> builder, string [] names)
         {
             return builder
-                    .WithFactory(() => CreatePlayersFromNames(names));
+                .WithFactory(() => names.Select(name => new Player(name)).ToList());
         }
 
-        #region Private Helpers
-
-        private static List<Player> CreatePlayersFromNames(IEnumerable<string> names)
+        public static ISingleObjectBuilder<List<Player>> WithPlayers(this ISingleObjectBuilder<List<Player>> builder, IList<(string player, string hand)> players)
         {
-            return names.Select(name => new Player(name)).ToList();
+            return builder
+                .WithFactory(() => players.Select(p => new Player(p.player, new Hand(p.hand))).ToList());
         }
-
-        #endregion
     }
 }

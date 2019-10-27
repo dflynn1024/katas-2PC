@@ -1,6 +1,9 @@
-﻿using _2CP.Game;
+﻿using System.Collections.Generic;
+using _2CP.Game;
 using _2CP.Game.Actors;
 using _2CP.Game.Model;
+using _2CP.Tests.Builders;
+using FizzWare.NBuilder;
 
 // ReSharper disable InconsistentNaming
 
@@ -19,6 +22,11 @@ namespace _2CP.Tests.Shared_Steps.Givens
             {
                 game.Join(player);
             }
+        }
+
+        public static void TheFollowingPlayersWithHands(IList<(string player, string hand)> playersNotation, out IList<Player> players)
+        {
+            players = Builder<List<Player>>.CreateNew().WithPlayers(playersNotation).Build();
         }
 
         public static void ANewDeckOfCards(out Deck deck)

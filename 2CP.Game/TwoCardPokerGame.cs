@@ -43,7 +43,7 @@ namespace _2CP.Game
             if (!this.CanPlayRound())
                 return;
 
-            Rounds.Add(new Round(Rounds.Count + 1));
+            Rounds.Add(new Round(Rounds.Count + 1, null));
 
             Status = Rounds.Count == NumberOfRounds
                 ? GameStatus.GameOver

@@ -1,10 +1,7 @@
-﻿using System;
-using _2CP.Game;
-using System.Collections.Generic;
+﻿using _2CP.Game;
 using _2CP.Game.Actors;
 using _2CP.Game.Model;
-using _2CP.Tests.Builders;
-using FizzWare.NBuilder;
+using System.Collections.Generic;
 
 namespace _2CP.Tests.Shared_Steps.Whens
 {
@@ -35,18 +32,15 @@ namespace _2CP.Tests.Shared_Steps.Whens
             dealer.Deal(deck, players, cards);
         }
 
-        public static void TheHandIsRanked(IRanker ranker, string hand, out (HandRank rank, Card highCard) result)
+        public static void TheHandIsRanked(IRanker ranker, string handNotation, out (HandRank rank, Card highCard) result)
         {
-            result = ranker.RankHand(CreateHand(hand));
+            result = ranker.RankHand(new Hand(handNotation));
         }
 
-        #region Private Helpers
-
-        private static Hand CreateHand(string csvCards)
+        public static void TheRoundIsScored(IScorer scorer, IList<Player> players, int roundNumber, out Round round)
         {
-            return Builder<Hand>.CreateNew().WithCards(csvCards.Split(',', StringSplitOptions.RemoveEmptyEntries)).Build();
+            var scores = scorer.Score(players);
+            round = new Round(roundNumber, scores);
         }
-
-        #endregion
     }
 }

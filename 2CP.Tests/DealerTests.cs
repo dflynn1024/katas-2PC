@@ -92,7 +92,7 @@ namespace _2CP.Tests
 
         private static IList<Hand> CreateHands(IEnumerable<string> handsOfCards)
         {
-            return handsOfCards.Select(h => Builder<Hand>.CreateNew().WithCards(h.Split(',', StringSplitOptions.RemoveEmptyEntries)).Build()).ToList();
+            return handsOfCards.Select(h => new Hand(h)).ToList();
         }
 
         #endregion

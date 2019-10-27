@@ -5,6 +5,7 @@ using Castle.Core.Internal;
 using FluentAssertions;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace _2CP.Tests.Shared_Steps.Thens
 {
@@ -86,11 +87,23 @@ namespace _2CP.Tests.Shared_Steps.Thens
             actual.Should().Be(CreateCard(expectedFromShortName));
         }
 
+        public static void TheRoundScoreIs(Round actual, IList<(string player, int score)> scoreNotation)
+        {
+            var expected = CreateRound(scoreNotation);
+            actual.Should().BeEquivalentTo(expected);
+        }
+
         #region Private Helpers
 
         private static Card CreateCard(string cardShortName)
         {
             return new Card(cardShortName);
+        }
+
+        private static Round CreateRound(IList<(string player, int score)> scoresNotation)
+        {
+            var scores = scoresNotation.Select(s => new Score(new Player(s.player), s.score)).ToList();
+            return new Round(scores: scores);
         }
 
         #endregion

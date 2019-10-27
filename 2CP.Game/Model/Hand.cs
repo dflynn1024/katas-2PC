@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace _2CP.Game.Model
@@ -15,10 +16,11 @@ namespace _2CP.Game.Model
             Cards = cards ?? new List<Card>();
         }
 
-        public Hand(IEnumerable<string> cardShortNames)
-        {
-            Cards = cardShortNames.Select(shortName => new Card(shortName)).ToList();
-        }
+        /// <summary>
+        /// Initialise hand using card notation: "2♦,A♦".
+        /// </summary>
+        public Hand(string cards)
+            : this(CreateCardsFromNotation(cards)){}
 
         public void AssignCard(Card card)
         {
@@ -29,5 +31,14 @@ namespace _2CP.Game.Model
         {
             Cards.Clear();
         }
+
+        #region Private Helpers
+
+        private static List<Card> CreateCardsFromNotation(string cards)
+        {
+            return cards.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(card => new Card(card)).ToList();
+        }
+
+        #endregion
     }
 }
