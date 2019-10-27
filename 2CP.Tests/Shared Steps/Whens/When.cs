@@ -32,9 +32,10 @@ namespace _2CP.Tests.Shared_Steps.Whens
             dealer.Deal(deck, players, cards);
         }
 
-        public static void TheHandIsRanked(IRanker ranker, string handNotation, out (HandRank rank, Card highCard) result)
+        public static void TheHandIsRanked(IRanker ranker, string handNotation, out Hand hand)
         {
-            result = ranker.RankHand(new Hand(handNotation));
+            hand = new Hand(handNotation);
+            ranker.RankHand(hand);
         }
 
         public static void TheRoundIsScored(IScorer scorer, IList<Player> players, int roundNumber, out Round round)

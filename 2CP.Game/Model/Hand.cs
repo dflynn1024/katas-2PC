@@ -7,9 +7,13 @@ namespace _2CP.Game.Model
     /// <summary>
     /// Player's Hand which is just a collection of cards.
     /// </summary>
-    public class Hand
+    public class Hand : IComparable<Hand>
     {
         public IList<Card> Cards { get; }
+
+        public HandRank Rank { get; set; }
+
+        public Card HighCard => Cards.OrderByDescending(c => c).First();
 
         public Hand(IList<Card> cards = null)
         {
@@ -30,6 +34,13 @@ namespace _2CP.Game.Model
         public void ClearCards()
         {
             Cards.Clear();
+        }
+
+        public int CompareTo(Hand other)
+        {
+            return Rank == other.Rank
+                ? HighCard.CompareTo(other.HighCard)
+                : Rank.CompareTo(other.Rank);
         }
 
         #region Private Helpers

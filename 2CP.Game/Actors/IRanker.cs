@@ -7,6 +7,6 @@ namespace _2CP.Game.Actors
     /// </summary>
     public interface IRanker
     {
-        (HandRank rank, Card highCard) RankHand(Hand hand);
+        void RankHand(Hand hand);
     }
 }

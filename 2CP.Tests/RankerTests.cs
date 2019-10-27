@@ -20,9 +20,9 @@ namespace _2CP.Tests
         [MemberData(nameof(RankScenarios))]
         public void RankCardsInHand((string name, string hand, string high, HandRank rank) scenario)
         {
-            When.TheHandIsRanked(_ranker, scenario.hand, out var result);
-            Then.HandHighCardIs(result.highCard, scenario.high);
-            Then.HandRankIs(result.rank, scenario.rank);
+            When.TheHandIsRanked(_ranker, scenario.hand, out var hand);
+            Then.HandHighCardIs(hand.HighCard, scenario.high);
+            Then.HandRankIs(hand.Rank, scenario.rank);
         }
 
         #region Theory Data

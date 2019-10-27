@@ -3,7 +3,7 @@ using _2CP.Game.Extensions;
 
 namespace _2CP.Game.Model
 {
-    public class Card : ICloneable
+    public class Card : ICloneable, IComparable<Card>
     {
         public Rank Rank { get; }
         public Suit Suit { get; }
@@ -32,6 +32,13 @@ namespace _2CP.Game.Model
         public override string ToString()
         {
             return this.ShortName;
+        }
+
+        public int CompareTo(Card other)
+        {
+            return Rank == other.Rank
+                ? Suit.CompareTo(other.Suit)
+                : Rank.CompareTo(other.Rank);
         }
 
         public override bool Equals(object obj)

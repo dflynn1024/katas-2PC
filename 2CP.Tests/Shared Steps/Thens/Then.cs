@@ -90,7 +90,9 @@ namespace _2CP.Tests.Shared_Steps.Thens
         public static void TheRoundScoreIs(Round actual, IList<(string player, int score)> scoreNotation)
         {
             var expected = CreateRound(scoreNotation);
-            actual.Should().BeEquivalentTo(expected);
+
+            actual.Scores.Should().BeEquivalentTo(expected.Scores, options => 
+                options.Excluding(s => s.Player.Id).Excluding(s => s.Player.Hand));
         }
 
         #region Private Helpers

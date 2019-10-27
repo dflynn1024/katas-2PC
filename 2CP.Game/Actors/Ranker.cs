@@ -9,20 +9,33 @@ namespace _2CP.Game.Actors
     /// </summary>
     public class Ranker : IRanker
     {
-        public (HandRank rank, Card highCard) RankHand(Hand hand)
+        public void RankHand(Hand hand)
         {
             if (hand.IsStraightFlush())
-                return (HandRank.StraightFlush, GetHighCard(hand));
+            {
+                hand.Rank = HandRank.StraightFlush;
+                return;
+            }
 
             if (hand.IsFlush())
-                return (HandRank.Flush, GetHighCard(hand));
+            {
+                hand.Rank = HandRank.Flush;
+                return;
+            }
 
             if (hand.IsStraight())
-                return (HandRank.Straight, GetHighCard(hand));
+            {
+                hand.Rank = HandRank.Straight;
+                return;
+            }
 
-            return hand.IsPair() 
-                ? (HandRank.Pair, GetHighCard(hand)) 
-                : (HandRank.HighCard, GetHighCard(hand));
+            if (hand.IsPair())
+            {
+                hand.Rank = HandRank.Pair;
+                return;
+            }
+
+            hand.Rank = HandRank.HighCard;
         }
 
         #region Private Helpers
