@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using _2CP.Game.Facts;
+﻿using _2CP.Game.Facts;
 using _2CP.Game.Model;
 
 namespace _2CP.Game.Actors
@@ -37,17 +36,5 @@ namespace _2CP.Game.Actors
 
             hand.Rank = HandRank.HighCard;
         }
-
-        #region Private Helpers
-
-        private static Card GetHighCard(Hand hand)
-        {
-            return hand.Cards
-                .OrderByDescending(c => c.Rank)
-                .ThenByDescending(c => c.Suit)
-                .FirstOrDefault();
-        }
-
-        #endregion
     }
 }
