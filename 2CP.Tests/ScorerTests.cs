@@ -231,6 +231,116 @@ namespace _2CP.Tests
                     scores: new [] {
                         (player: "bob", score: 0),
                         (player: "jim", score: 1)}
+                ),
+                (
+                    name: "Scenario 21: 6 Players, Sue win's, highest high card wins",
+                    round: 1,
+                    players: new [] {
+                        (player: "bob", hand: "5♣,7♦"),
+                        (player: "jim", hand: "2♥,J♠"),
+                        (player: "sue", hand: "3♦,A♣"),
+                        (player: "jen", hand: "8♠,Q♥"),
+                        (player: "zoe", hand: "9♣,2♦"),
+                        (player: "joe", hand: "T♥,8♠")},
+                    scores: new [] {
+                        (player: "bob", score: 0),
+                        (player: "zoe", score: 1),
+                        (player: "joe", score: 2),
+                        (player: "jim", score: 3),
+                        (player: "jen", score: 4),
+                        (player: "sue", score: 5)}
+                ),
+                (
+                    name: "Scenario 22: 6 Players, Joe wins, 2 with pair, highest pair wins",
+                    round: 1,
+                    players: new [] {
+                        (player: "bob", hand: "5♣,7♦"),
+                        (player: "jim", hand: "2♥,J♠"),
+                        (player: "sue", hand: "3♦,A♣"),
+                        (player: "jen", hand: "8♠,Q♥"),
+                        (player: "zoe", hand: "9♣,9♦"),
+                        (player: "joe", hand: "T♥,T♠")},
+                    scores: new [] {
+                        (player: "bob", score: 0),
+                        (player: "jim", score: 1),
+                        (player: "jen", score: 2),
+                        (player: "sue", score: 3),
+                        (player: "zoe", score: 4),
+                        (player: "joe", score: 5)}
+                ),
+                (
+                    name: "Scenario 23: 6 Players, Zoe wins, 2 with straight, highest straight wins",
+                    round: 1,
+                    players: new [] {
+                        (player: "bob", hand: "5♣,7♦"),
+                        (player: "jim", hand: "2♥,J♠"),
+                        (player: "sue", hand: "3♦,A♣"),
+                        (player: "jen", hand: "8♠,Q♥"),
+                        (player: "zoe", hand: "9♣,T♦"),
+                        (player: "joe", hand: "8♥,9♠")},
+                    scores: new [] {
+                        (player: "bob", score: 0),
+                        (player: "jim", score: 1),
+                        (player: "jen", score: 2),
+                        (player: "sue", score: 3),
+                        (player: "joe", score: 4),
+                        (player: "zoe", score: 5)}
+                ),
+                (
+                    name: "Scenario 24: 6 Players, Joe wins, 2 with flush, highest flush wins",
+                    round: 1,
+                    players: new [] {
+                        (player: "bob", hand: "5♣,7♦"),
+                        (player: "jim", hand: "2♥,J♠"),
+                        (player: "sue", hand: "3♦,A♣"),
+                        (player: "jen", hand: "8♠,Q♥"),
+                        (player: "zoe", hand: "8♣,T♣"),
+                        (player: "joe", hand: "9♥,J♥")},
+                    scores: new [] {
+                        (player: "bob", score: 0),
+                        (player: "jim", score: 1),
+                        (player: "jen", score: 2),
+                        (player: "sue", score: 3),
+                        (player: "zoe", score: 4),
+                        (player: "joe", score: 5)}
+                ),
+                (
+                    name: "Scenario 25: 6 Players, Zoe wins, 2 with straight flush, highest straight flush wins",
+                    round: 1,
+                    players: new [] {
+                        (player: "bob", hand: "5♣,7♦"),
+                        (player: "jim", hand: "2♥,J♠"),
+                        (player: "sue", hand: "3♦,A♣"),
+                        (player: "jen", hand: "8♠,Q♥"),
+                        (player: "zoe", hand: "9♣,T♣"),
+                        (player: "joe", hand: "6♥,7♥")},
+                    scores: new [] {
+                        (player: "bob", score: 0),
+                        (player: "jim", score: 1),
+                        (player: "jen", score: 2),
+                        (player: "sue", score: 3),
+                        (player: "joe", score: 4),
+                        (player: "zoe", score: 5)}
+                ),
+                (
+                    name: "Scenario 26: 2 Players, Bob win's, wrap around (2♦,A♣) straight beats high card",
+                    round: 1,
+                    players: new [] {
+                        (player: "bob", hand: "2♦,A♣"),
+                        (player: "jim", hand: "A♠,4♦")},
+                    scores: new [] {
+                        (player: "jim", score: 0),
+                        (player: "bob", score: 1)}
+                ),
+                (
+                    name: "Scenario 27: 2 Players, Jim win's, wrap around (A♣, 2♦) straight beats high card",
+                    round: 1,
+                    players: new [] {
+                        (player: "bob", hand: "3♦,A♠"),
+                        (player: "jim", hand: "A♣,2♦")},
+                    scores: new [] {
+                        (player: "bob", score: 0),
+                        (player: "jim", score: 1)}
                 )
             };
 
