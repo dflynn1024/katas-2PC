@@ -1,5 +1,6 @@
 ﻿using _2CP.Game;
 using _2CP.Game.Actors;
+using _2CP.Game.Extensions;
 using _2CP.Game.Model;
 using Castle.Core.Internal;
 using FluentAssertions;
@@ -95,6 +96,32 @@ namespace _2CP.Tests.Shared_Steps.Thens
                 options.Excluding(s => s.Player.Id).Excluding(s => s.Player.Hand));
         }
 
+        public static void TheWinnerOfEachRoundIsThePlayerWithHighestScore(IGame game)
+        {
+            if (game.Status != GameStatus.GameOver)
+                return;
+
+            var roundsPlayed = game.Rounds.Where(r => r.Scores.IsNotNull() && r.Scores.Any()).ToList();
+            var expectedWinners = roundsPlayed.Select((r,n) => new{ round = n, winner = r.Scores.OrderByDescending(s => s.Total).First().Player.Name}).ToList();
+            var actualWinners = roundsPlayed.Select((r, n) => new { round = n, winner = r.Winner().Name }).ToList();
+
+            expectedWinners.Should().BeEquivalentTo(actualWinners);
+        }
+
+        public static void TheWinningPlayerIsThePlayerWithHighestScore(IGame game)
+        {
+            if (game.Status != GameStatus.GameOver)
+                return;
+
+            var roundsPlayed = game.Rounds.Where(r => r.Scores.IsNotNull() && r.Scores.Any()).ToList();
+            var overallScores = roundsPlayed.SelectMany(r => r.Scores).GroupBy(s => s.Player)
+                .Select(s => new { player = s.Key, score = s.Sum(x => x.Total)})
+                .ToList();
+
+            var expectedWinner = overallScores.OrderByDescending(s => s.score).FirstOrDefault()?.player;
+            game.Winner.Should().Be(expectedWinner);
+        }
+
         #region Private Helpers
 
         private static Card CreateCard(string cardShortName)
@@ -102,7 +129,7 @@ namespace _2CP.Tests.Shared_Steps.Thens
             return new Card(cardShortName);
         }
 
-        private static Round CreateRound(IList<(string player, int score)> scoresNotation)
+        private static Round CreateRound(IEnumerable<(string player, int score)> scoresNotation)
         {
             var scores = scoresNotation.Select(s => new Score(new Player(s.player), s.score)).ToList();
             return new Round(scores: scores);

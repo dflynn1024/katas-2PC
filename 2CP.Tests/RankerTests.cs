@@ -31,55 +31,55 @@ namespace _2CP.Tests
             new TheoryData<(string name, string hand, string high, HandRank rank)>
             {
                 (
-                    name: "Scenario 1: High Card, A♠ High",
+                    name: "Scenario 01: High Card, A♠ High",
                     hand: "A♠,J♥",
                     high: "A♠",
                     rank: HandRank.HighCard
                 ),
                 (
-                    name: "Scenario 2: High Card, K♥ High",
+                    name: "Scenario 02: High Card, K♥ High",
                     hand: "J♠,K♥",
                     high: "K♥",
                     rank: HandRank.HighCard
                 ),
                 (
-                    name: "Scenario 3: High Card, A♠ High (3 cards)",
+                    name: "Scenario 03: High Card, A♠ High (3 cards)",
                     hand: "J♠,2♥,A♠",
                     high: "A♠",
                     rank: HandRank.HighCard
                 ),
                 (
-                    name: "Scenario 4: Pair, K♥ High",
+                    name: "Scenario 04: Pair, K♥ High",
                     hand: "K♦,K♥",
                     high: "K♥",
                     rank: HandRank.Pair
                 ),
                 (
-                    name: "Scenario 5: Pair, 2♠ High",
+                    name: "Scenario 05: Pair, 2♠ High",
                     hand: "2♠,2♥",
                     high: "2♠",
                     rank: HandRank.Pair
                 ),
                 (
-                    name: "Scenario 6: Pair, J♠ High (3 cards)",
+                    name: "Scenario 06: Pair, J♠ High (3 cards)",
                     hand: "2♠,2♥,J♠",
                     high: "J♠",
                     rank: HandRank.Pair
                 ),
                 (
-                    name: "Scenario 7: Straight, 3♥ High",
+                    name: "Scenario 07: Straight, 3♥ High",
                     hand: "2♠,3♥",
                     high: "3♥",
                     rank: HandRank.Straight
                 ),
                 (
-                    name: "Scenario 8: Straight, A♠ High",
+                    name: "Scenario 08: Straight, A♠ High",
                     hand: "A♠,K♥",
                     high: "A♠",
                     rank: HandRank.Straight
                 ),
                 (
-                    name: "Scenario 9: Straight, A♠ High (wrap around)",
+                    name: "Scenario 09: Straight, A♠ High (wrap around)",
                     hand: "A♠,2♥",
                     high: "A♠",
                     rank: HandRank.Straight

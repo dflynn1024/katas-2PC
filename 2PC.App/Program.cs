@@ -2,7 +2,6 @@
 using _2CP.Game;
 using _2CP.Game.Actors;
 using _2CP.Game.Model;
-using _2CP.Game.Validators;
 
 namespace _2PC.App
 {
@@ -16,8 +15,7 @@ namespace _2PC.App
 
                 var players = PromptNumber("Enter number of players (2-6): ");
                 var rounds = PromptNumber("Enter number of rounds (1-5): ");
-                var server = new GameServer(new TwoCardPokerGameValidator());
-                var game = server.NewGame(players, rounds);
+                var game = new GameServer().NewGame(players, rounds);
 
                 if (game.Status == GameStatus.Invalid)
                 {

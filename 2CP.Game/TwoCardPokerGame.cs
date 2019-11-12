@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using System.Collections.Generic;
+using System.Linq;
 using _2CP.Game.Actors;
 using _2CP.Game.Facts;
 using _2CP.Game.Model;
@@ -11,6 +12,9 @@ namespace _2CP.Game
     /// </summary>
     public class TwoCardPokerGame : IGame
     {
+        private readonly Deck _deck;
+        private readonly IDealer _dealer;
+
         public int RequiredPlayers { get; }
         public int NumberOfRounds { get; }
         public GameStatus Status { get; private set; }
@@ -20,7 +24,7 @@ namespace _2CP.Game
 
         public Player Winner { get; private set; }
 
-        public TwoCardPokerGame(IValidator<TwoCardPokerGame> validator, int requiredPlayers, int numberOfRounds)
+        public TwoCardPokerGame(int requiredPlayers, int numberOfRounds, IValidator<TwoCardPokerGame> validator, IDealer dealer)
         {
             RequiredPlayers = requiredPlayers;
             NumberOfRounds = numberOfRounds;
@@ -33,6 +37,9 @@ namespace _2CP.Game
             Status = GameStatus.AwaitingPlayers;
             Players = new List<Player>(requiredPlayers);
             Rounds = new List<Round>(numberOfRounds);
+
+            _dealer = dealer;
+            _deck = new Deck();
         }
 
         /// <summary>
@@ -43,7 +50,11 @@ namespace _2CP.Game
             if (!this.CanPlayRound())
                 return;
 
-            Rounds.Add(new Round(Rounds.Count + 1, null));
+            var shuffledDeck =_dealer.Shuffle(_deck);
+            _dealer.Deal(shuffledDeck, Players, 2);
+            var score = _dealer.ScorePlayers(Players);
+
+            Rounds.Add(new Round(Rounds.Count + 1, score));
 
             Status = Rounds.Count == NumberOfRounds
                 ? GameStatus.GameOver
@@ -86,7 +97,9 @@ namespace _2CP.Game
 
         private void GameOver()
         {
-            Winner = Players[0];
+            Winner = Rounds.SelectMany(r => r.Scores).GroupBy(s => s.Player)
+                .Select(s => new { player = s.Key, score = s.Sum(x => x.Total) })
+                .OrderByDescending(s => s.score).FirstOrDefault()?.player;
         }
 
         #endregion

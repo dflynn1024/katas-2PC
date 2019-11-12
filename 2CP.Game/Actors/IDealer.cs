@@ -7,5 +7,6 @@ namespace _2CP.Game.Actors
     {
         void Deal(Deck deck, IList<Player> players, int cards);
         Deck Shuffle(Deck deck);
+        IList<Score> ScorePlayers(IList<Player> players);
     }
 }

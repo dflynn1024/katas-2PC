@@ -13,7 +13,7 @@ namespace _2CP.Game.Model
 
         public HandRank Rank { get; set; }
 
-        public Card HighCard => Cards.OrderByDescending(c => c).First();
+        public Card HighCard => Cards.OrderByDescending(c => c).FirstOrDefault();
 
         public Hand(IList<Card> cards = null)
         {

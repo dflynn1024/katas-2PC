@@ -11,19 +11,20 @@ using Xunit;
 
 namespace _2CP.Tests
 {
-    public class GameServerTests : IClassFixture<SystemUnderTestFixture<GameServer>>
+    public class TwoCardPokerGameTests : IClassFixture<SystemUnderTestFixture<GameServer>>
     {
         private readonly IGameServer _gameServer;
 
-        public GameServerTests(SystemUnderTestFixture<GameServer> fixture)
+        public TwoCardPokerGameTests(SystemUnderTestFixture<GameServer> fixture)
         {
             fixture.RegisterDependency<IValidator<TwoCardPokerGame>>(new TwoCardPokerGameValidator());
+            fixture.RegisterDependency<IDealer>(new Dealer(new Shuffler(), new Scorer(new Ranker())));
             _gameServer = fixture.SystemUnderTest;
         }
 
-        [Theory(DisplayName = "Game Server Tests")]
-        [MemberData(nameof(TheoryDataForNewGameScenarios))]
-        public void NewGameScenarios((string name, int totalPlayers, int totalRounds, string[] players, int playRounds, GameStatus expectedStatus, int expectedPlayersJoined, int expectedRoundsScored, int expectedNumberOfErrors) scenario)
+        [Theory(DisplayName = "Two Card Poker Game Tests: Play Game Scenarios")]
+        [MemberData(nameof(TheoryDataForPlayGameScenarios))]
+        public void PlayGameScenarios((string name, int totalPlayers, int totalRounds, string[] players, int playRounds, GameStatus expectedStatus, int expectedPlayersJoined, int expectedRoundsScored, int expectedNumberOfErrors) scenario)
         {
             Given.IAmStartingANewGame(_gameServer, scenario.totalPlayers, scenario.totalRounds, out var game);
             Given.TheFollowingPlayersJoinGame(game, scenario.players);
@@ -32,15 +33,17 @@ namespace _2CP.Tests
             Then.GameHasExpectedNumberOfPlayers(game, scenario.expectedPlayersJoined);
             Then.GameHasExpectedNumberOfRoundsScored(game, scenario.expectedRoundsScored);
             Then.GameHasExpectedNumberOfErrors(game, scenario.expectedNumberOfErrors);
+            Then.TheWinnerOfEachRoundIsThePlayerWithHighestScore(game);
+            Then.TheWinningPlayerIsThePlayerWithHighestScore(game);
         }
 
         #region Theory Data
 
-        public static TheoryData<(string name, int totalPlayers, int totalRounds, string [] players, int playRounds, GameStatus expectedStatus, int expectedPlayersJoined, int expectedRoundsScored, int expectedNumberOfErrors)> TheoryDataForNewGameScenarios =>
+        public static TheoryData<(string name, int totalPlayers, int totalRounds, string [] players, int playRounds, GameStatus expectedStatus, int expectedPlayersJoined, int expectedRoundsScored, int expectedNumberOfErrors)> TheoryDataForPlayGameScenarios =>
             new TheoryData<(string name, int totalPlayers, int totalRounds, string[] players, int playRounds, GameStatus expectedStatus, int expectedPlayersJoined, int expectedRoundsScored, int expectedNumberOfErrors)>
             {
                 (
-                    name: "Scenario 1: 2 of 2 Players Joined, 1 of 1 Rounds Played: Expect Game Over",
+                    name: "Scenario 01: 2 of 2 Players Joined, 1 of 1 Rounds Played: Expect Game Over",
                     totalPlayers: 2,
                     totalRounds: 1,
                     players: new [] {"Bob", "Gill"},
@@ -51,7 +54,7 @@ namespace _2CP.Tests
                     expectedNumberOfErrors: 0
                 ),
                 (
-                    name: "Scenario 2: 1 of 2 Players Joined: Expect Awaiting Players, No rounds scored",
+                    name: "Scenario 02: 1 of 2 Players Joined: Expect Awaiting Players, No rounds scored",
                     totalPlayers: 2,
                     totalRounds: 1,
                     players: new [] {"Bob"},
@@ -62,7 +65,7 @@ namespace _2CP.Tests
                     expectedNumberOfErrors: 0
                 ),
                 (
-                    name: "Scenario 3: 1 of 2 Players Joined: Expect Awaiting Players, Try Play Round, No rounds scored",
+                    name: "Scenario 03: 1 of 2 Players Joined: Expect Awaiting Players, Try Play Round, No rounds scored",
                     totalPlayers: 2,
                     totalRounds: 1,
                     players: new [] {"Bob"},
@@ -73,7 +76,7 @@ namespace _2CP.Tests
                     expectedNumberOfErrors: 0
                 ),
                 (
-                    name: "Scenario 4: 2 of 2 Players Joined: 1 or 2 Rounds Played, Expect Game InProgress",
+                    name: "Scenario 04: 2 of 2 Players Joined: 1 or 2 Rounds Played, Expect Game InProgress",
                     totalPlayers: 2,
                     totalRounds: 2,
                     players: new [] {"Bob", "Gill"},
@@ -84,7 +87,7 @@ namespace _2CP.Tests
                     expectedNumberOfErrors: 0
                 ),
                 (
-                    name: "Scenario 5: Max Players: Max Rounds (all played), Expect Game Over",
+                    name: "Scenario 05: Max Players: Max Rounds (all played), Expect Game Over",
                     totalPlayers: 6,
                     totalRounds: 5,
                     players: new [] {"Bob", "Gill", "Tim", "Todd", "Jon", "Liz"},
@@ -95,7 +98,7 @@ namespace _2CP.Tests
                     expectedNumberOfErrors: 0
                 ),
                 (
-                    name: "Scenario 6: Invalid number of players (> max). Expect Game Invalid and 1 errors",
+                    name: "Scenario 06: Invalid number of players (> max). Expect Game Invalid and 1 errors",
                     totalPlayers: 8,
                     totalRounds: 5,
                     players: new string []{},
@@ -106,7 +109,7 @@ namespace _2CP.Tests
                     expectedNumberOfErrors: 1
                 ),
                 (
-                    name: "Scenario 7: Invalid number of players (< min). Expect Game Invalid and 1 errors",
+                    name: "Scenario 07: Invalid number of players (< min). Expect Game Invalid and 1 errors",
                     totalPlayers: 1,
                     totalRounds: 5,
                     players: new string []{},
@@ -117,7 +120,7 @@ namespace _2CP.Tests
                     expectedNumberOfErrors: 1
                 ),
                 (
-                    name: "Scenario 8: Invalid number of rounds (> max). Expect Game Invalid and 1 errors",
+                    name: "Scenario 08: Invalid number of rounds (> max). Expect Game Invalid and 1 errors",
                     totalPlayers: 2,
                     totalRounds: 6,
                     players: new string []{},
@@ -128,7 +131,7 @@ namespace _2CP.Tests
                     expectedNumberOfErrors: 1
                 ),
                 (
-                    name: "Scenario 9: Invalid number of rounds (< min). Expect Game Invalid and 1 errors",
+                    name: "Scenario 09: Invalid number of rounds (< min). Expect Game Invalid and 1 errors",
                     totalPlayers: 2,
                     totalRounds: 0,
                     players: new string []{},
@@ -163,7 +166,5 @@ namespace _2CP.Tests
            };
 
         #endregion
-
-
     }
 }

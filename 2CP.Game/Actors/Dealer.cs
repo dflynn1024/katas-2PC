@@ -6,10 +6,12 @@ namespace _2CP.Game.Actors
     public class Dealer : IDealer
     {
         private readonly IShuffler _shuffler;
+        private readonly IScorer _scorer;
 
-        public Dealer(IShuffler shuffler)
+        public Dealer(IShuffler shuffler, IScorer scorer)
         {
             _shuffler = shuffler;
+            _scorer = scorer;
         }
 
         public Deck Shuffle(Deck deck)
@@ -31,6 +33,14 @@ namespace _2CP.Game.Actors
 
                 cardsToDeal--;
             }
+        }
+
+        /// <summary>
+        /// Evaluate player hands and scorer each player from weakest to strongest hand.
+        /// </summary>
+        public IList<Score> ScorePlayers(IList<Player> players)
+        {
+            return _scorer.Score(players);
         }
     }
 }
