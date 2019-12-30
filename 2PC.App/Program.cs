@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Drawing;
 using _2CP.Game;
 using _2CP.Game.Actors;
 using _2CP.Game.Model;
+using Console = Colorful.Console;
 
 namespace _2PC.App
 {
@@ -80,22 +82,22 @@ namespace _2PC.App
             switch (outputType)
             {
                 case OutputType.Info:
-                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.ForegroundColor = Color.Blue;
                     break;
                 case OutputType.Warning:
-                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    Console.ForegroundColor = Color.Magenta;
                     break;
                 case OutputType.Error:
-                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.ForegroundColor = Color.Red;
                     break;
                 case OutputType.Prompt:
-                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.ForegroundColor = Color.White;
                     break;
                 case OutputType.Title:
-                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.ForegroundColor = Color.Yellow;
                     break;
                 default:
-                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.ForegroundColor = Color.Blue;
                     break;
             }
         }
